@@ -55,13 +55,13 @@ class RestaurantController extends Controller
      */
     public function show($id)
     {
-        $restaurant = Restaurant::findOrFail($id);
-        return $restaurant;
-//        $restaurant = Restaurant::find($id);
-//        if (!empty($restaurant)) {
-//            return response($restaurant, 200);
-//        }
-//        return response("", 404);
+//        $restaurant = Restaurant::findOrFail($id);
+//        return response($restaurant, 200);
+        $restaurant = Restaurant::find($id);
+        if (!empty($restaurant)) {
+            return response($restaurant, 200);
+        }
+        return response("", 404);
     }
 
     /**
@@ -74,6 +74,9 @@ class RestaurantController extends Controller
     public function update(Request $request, $id)
     {
         $restaurant = Restaurant::findOrFail($id);
+
+
+
         $validator = Validator::make($request->all(), [
             'name' => 'bail|required|max:255',
             'description' => 'bail|required|max:255',
@@ -95,7 +98,12 @@ class RestaurantController extends Controller
      */
     public function destroy($id)
     {
-        $restaurant = Restaurant::findOrFail($id);
-        $restaurant->delete();
+        $restaurant = Restaurant::find($id);
+        if (!empty($restaurant)) {
+            $restaurant->delete();
+            return response("", 200);
+        }
+        return response("", 404);
+
     }
 }
