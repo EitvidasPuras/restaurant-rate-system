@@ -20,4 +20,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['middleware' => ['jwt.verify']], function () {
     Route::get('user', 'JwtController@getAuthenticatedUser');
     Route::apiResource('restaurants', 'RestaurantController');
+    Route::apiResource('types', 'TypeController');
 });
