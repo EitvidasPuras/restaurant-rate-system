@@ -20,6 +20,8 @@ class CreateRestaurantsTable extends Migration
             $table->string('image')->nullable();
             $table->integer('seats');
             $table->integer('type_id');
+            $table->integer('total_count')->default(0);
+            $table->double('average_rating', 2, 1)->default(0);
             $table->timestamps();
         });
     }

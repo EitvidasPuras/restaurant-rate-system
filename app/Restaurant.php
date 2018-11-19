@@ -11,7 +11,9 @@ class Restaurant extends Model
         'description',
         'image',
         'seats',
-        'type_id'
+        'type_id',
+        'total_count',
+        'average_rating'
     ];
 
     public function type()

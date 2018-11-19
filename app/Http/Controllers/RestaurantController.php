@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Rating;
 use Illuminate\Http\Request;
 use App\Restaurant;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Cookie;
+use Lcobucci\JWT\Parser;
+use Illuminate\Support\Facades\DB;
 
 class RestaurantController extends Controller
 {
@@ -16,6 +20,9 @@ class RestaurantController extends Controller
     public function index()
     {
         $restaurants = Restaurant::all();
+        foreach ($restaurants as $restaurant) {
+            $restaurant->type;
+        }
         return response($restaurants, 200);
     }
 
@@ -27,6 +34,11 @@ class RestaurantController extends Controller
      */
     public function store(Request $request)
     {
+        $token = Cookie::get('JWT-TOKEN');
+        $token = (new Parser())->parse((string)$token);
+        if (!$token->getClaim('admin')) {
+            return response("Not an admin", 400);
+        }
         $validator = Validator::make($request->all(), [
             'name' => 'bail|required|max:255',
             'description' => 'bail|required|max:255',
@@ -55,10 +67,9 @@ class RestaurantController extends Controller
      */
     public function show($id)
     {
-//        $restaurant = Restaurant::findOrFail($id);
-//        return response($restaurant, 200);
         $restaurant = Restaurant::find($id);
         if (!empty($restaurant)) {
+            $restaurant->type;
             return response($restaurant, 200);
         }
         return response("", 404);
@@ -73,8 +84,13 @@ class RestaurantController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $restaurant = Restaurant::findOrFail($id);
+        $token = Cookie::get('JWT-TOKEN');
+        $token = (new Parser())->parse((string)$token);
+        if (!$token->getClaim('admin')) {
+            return response("Not an admin", 400);
+        }
 
+        $restaurant = Restaurant::findOrFail($id);
         $validator = Validator::make($request->all(), [
             'name' => 'bail|required|max:255',
             'description' => 'bail|required|max:255',
@@ -96,11 +112,39 @@ class RestaurantController extends Controller
      */
     public function destroy($id)
     {
+        $token = Cookie::get('JWT-TOKEN');
+        $token = (new Parser())->parse((string)$token);
+        if (!$token->getClaim('admin')) {
+            return response("Not an admin", 400);
+        }
+
         $restaurant = Restaurant::find($id);
         if (!empty($restaurant)) {
             $restaurant->delete();
             return response("", 200);
         }
         return response("", 404);
+    }
+
+    public function rateRestaurant(Request $request)
+    {
+        $restaurant = Restaurant::find($request->restaurant_id);
+        $token = Cookie::get('JWT-TOKEN');
+        $token = (new Parser())->parse((string)$token);
+        $alreadyRated = DB::table('ratings')
+            ->where('user_id', '=', $token->getClaim('uid'))
+            ->where('restaurant_id', '=', $request->restaurant_id)
+            ->get();
+        if(!$alreadyRated->isEmpty()){
+            return response("User already rated this restaurant", 400);
+        }
+        DB::table('ratings')->insert(
+            ['user_id' => $token->getClaim('uid'), 'restaurant_id' => $request->restaurant_id, 'rating' => $request->rating]
+        );
+
+        $newAverage = ($restaurant->total_count * $restaurant->average_rating + $request->rating) / ($restaurant->total_count + 1);
+        DB::table('restaurants')->where('id', $request->restaurant_id)
+            ->update(['total_count' => $restaurant->total_count + 1, 'average_rating' => $newAverage]);
+
     }
 }

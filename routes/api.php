@@ -21,4 +21,6 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     Route::get('user', 'JwtController@getAuthenticatedUser');
     Route::apiResource('restaurants', 'RestaurantController');
     Route::apiResource('types', 'TypeController');
+    Route::apiResource('comments', 'CommentsController');
+    Route::post('rateRestaurant', 'RestaurantController@rateRestaurant');
 });
