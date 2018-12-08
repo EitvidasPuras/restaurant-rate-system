@@ -3,7 +3,6 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Exception;
 use Tymon\JWTAuth\Http\Middleware\BaseMiddleware;
 use JWTAuth;
 use Cookie;
@@ -46,5 +45,6 @@ class JwtMiddleware extends BaseMiddleware
             return response()->json('Token invalid', 400);
         }
         return $next($request);
+//        return response($token);
     }
 }

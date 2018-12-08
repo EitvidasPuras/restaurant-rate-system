@@ -22,6 +22,14 @@ class RestaurantController extends Controller
         $restaurants = Restaurant::all();
         foreach ($restaurants as $restaurant) {
             $restaurant->type;
+            $restaurant->comments;
+            foreach ($restaurant->comments as $comment) {
+                $comment->user;
+            }
+            $restaurant->ratings;
+            foreach ($restaurant->ratings as $rating) {
+                $rating->user;
+            }
         }
         return response($restaurants, 200);
     }
@@ -121,6 +129,8 @@ class RestaurantController extends Controller
         $restaurant = Restaurant::find($id);
         if (!empty($restaurant)) {
             $restaurant->delete();
+            DB::table('comments')->where('restaurant_id', '=', $id)->delete();
+            DB::table('ratings')->where('restaurant_id', '=', $id)->delete();
             return response("", 200);
         }
         return response("", 404);
@@ -135,7 +145,7 @@ class RestaurantController extends Controller
             ->where('user_id', '=', $token->getClaim('uid'))
             ->where('restaurant_id', '=', $request->restaurant_id)
             ->get();
-        if(!$alreadyRated->isEmpty()){
+        if (!$alreadyRated->isEmpty()) {
             return response("User already rated this restaurant", 400);
         }
         DB::table('ratings')->insert(

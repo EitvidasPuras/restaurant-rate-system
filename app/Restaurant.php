@@ -20,4 +20,14 @@ class Restaurant extends Model
     {
         return $this->hasOne(Type::class, 'id', 'type_id');
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'restaurant_id', 'id');
+    }
+
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class, 'restaurant_id', 'id');
+    }
 }
