@@ -11,10 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['middleware' => ['jwt.verify']], function () {
+    Route::get('/hub', 'TotalController@hubIndex')->name('hub');
+});
+
+Route::get('/', 'TotalController@homeIndex')->name('home');

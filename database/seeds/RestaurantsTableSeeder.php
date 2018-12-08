@@ -16,6 +16,7 @@ class RestaurantsTableSeeder extends Seeder
             $restaurant = new Restaurant();
             $restaurant->name = "Restaurant" . $i;
             $restaurant->description = "Test description";
+            $restaurant->image = "placeholder.jpeg";
             $restaurant->seats = rand(5, 20);
             $restaurant->type_id = rand(1, 3);
 //            $restaurant->total_count = rand(1, 15);
