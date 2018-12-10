@@ -38,7 +38,7 @@ class JwtMiddleware extends BaseMiddleware
         $data->setCurrentTime(time());
         $data->setId(env('JWT_ID'));
         if(!$token = Cookie::get('JWT-TOKEN')){
-            return response()->json('Cookie not found', 404);
+            return response()->json('No cookie', 404);
         }
         $token = (new Parser())->parse((string) $token);
         if(!$token->validate($data) or !$token->verify(new Sha256(), env('JWT_SECRET'))){

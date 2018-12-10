@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use JWTAuth;
 use Cookie;
 use Lcobucci\JWT\Parser;
@@ -23,5 +24,14 @@ class JwtController extends Controller
         }
 
         return response()->json(compact('user'));
+    }
+
+    public function loginUsingToken()
+    {
+        $token = Cookie::get('JWT-TOKEN');
+        $token = (new Parser())->parse((string)$token);
+        $uid = $token->getClaim('uid');
+        Auth::loginUsingId($uid);
+        return redirect('/');
     }
 }

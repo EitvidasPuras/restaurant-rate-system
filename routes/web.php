@@ -17,4 +17,6 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     Route::get('/hub', 'TotalController@hubIndex')->name('hub');
 });
 
+Route::get('/loginwithtoken', 'JwtController@loginUsingToken')->middleware('jwt.verify')->name('loginWithToken');
+Route::get('/{id}', 'TotalController@showRestaurant')->name('showRestaurant');
 Route::get('/', 'TotalController@homeIndex')->name('home');

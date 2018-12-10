@@ -1,63 +1,14 @@
-.col-personal-1 {
-    width: 8.33%;
-}
-
-.col-personal-2 {
-    width: 16.66%;
-}
-
-.col-personal-3 {
-    width: 25%;
-}
-
-.col-personal-4 {
-    width: 33.33%;
-}
-
-.col-personal-5 {
-    width: 41.66%;
-}
-
-.col-personal-6 {
-    width: 50%;
-}
-
-.col-personal-7 {
-    width: 58.33%;
-}
-
-.col-personal-8 {
-    width: 66.66%;
-}
-
-.col-personal-9 {
-    width: 75%;
-}
-
-.col-personal-10 {
-    width: 83.33%;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row
-}
-
-.col-personal-11 {
-    width: 91.66%;
-}
-
-.col-personal-12 {
-    width: 100%;
-}
-
 .navbar {
     background-color: #d8c3a5;
     margin-bottom: 48px;
+    padding-top: 1px;
+    padding-bottom: 1px;
 }
 
 .navbar-light .navbar-brand {
     color: white;
-    font-size: large;
-    font-family: "Magneto", sans-serif;
+    font-size: 1.5rem;
+    font-family: "Lobster", sans-serif;
 }
 
 .navbar-light .navbar-brand:hover {
@@ -71,8 +22,8 @@
 
 #navbarDropdown {
     color: white;
-    font-size: large;
-    font-family: "Magneto", sans-serif;
+    font-size: 1.5rem;
+    font-family: "Lobster", sans-serif;
 }
 
 #navbarDropdown:hover {
@@ -88,8 +39,9 @@
 }
 
 .dropdown-item {
+    font-size: large;
     color: white;
-    font-family: "Magneto", sans-serif;
+    font-family: "Lobster", sans-serif;
 }
 
 .dropdown-item:hover {
@@ -105,8 +57,8 @@
 
 .navbar-light .navbar-nav .nav-link {
     color: white;
-    font-family: "Magneto", sans-serif;
-    font-size: large;
+    font-family: "Lobster", sans-serif;
+    font-size: 1.5rem;
 }
 
 .navbar-light .navbar-nav .nav-link:hover {
@@ -121,7 +73,7 @@
 .card-header {
     background-color: #d8c3a5;
     color: white;
-    font-family: "Magneto", sans-serif;
+    font-family: "Lobster", sans-serif;
     font-size: large;
 }
 
@@ -198,11 +150,121 @@ body {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2) !important;
 }
 
-div.text-container {
+.restaurants-holder p {
+    margin-left: 10%;
+    width: 80%;
     padding: 5px 5px !important;
+    font-size: medium;
+    color: black;
 }
 
-div.restaurant-holder {
+p.restaurant-text {
+    margin-bottom: 0 !important;
+}
+
+.restaurant-info-holder p {
+    font-size: 1.08rem;
+    color: black;
+    text-align: justify;
+}
+
+textarea {
+    resize: none;
+}
+
+div.comment-form-holder {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.no-content {
+    color: #82817e;
+    font-family: "Lobster", sans-serif;
+    justify-content: center;
+    /*background-image: linear-gradient(to right, #9b9a97 50%, white);*/
+    height: 4rem;
+    display: flex;
+    align-items: center;
+}
+
+.no-content h1 {
+    margin: 0;
+}
+
+.pagination {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+    list-style: none;
+    border-radius: .25rem;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+}
+
+.page-item.disabled .page-link {
+    background-color: #aaa79c !important;
+    border: 1px solid #9b9a97 !important;
+    color: black !important;
+}
+
+.page-item:last-child .page-link {
+    border-top-right-radius: .25rem;
+    border-bottom-right-radius: .25rem;
+    background-color: #EAE7DC;
+    border: 1px solid #9b9a97;
+    color: black;
+    /*width: 130%;*/
+}
+
+div#errors {
+    display: none;
+}
+
+div.title-holder {
+    color: white;
+    font-family: "Lobster", sans-serif;
+    padding-left: 4%;
+    background-image: linear-gradient(to right, #9b9a97 50%, white);
+    height: 4rem;
+    display: flex;
+    align-items: center;
+}
+
+div.title-holder h1 {
+    margin: 0;
+}
+
+.page-item:first-child .page-link {
+    margin-left: 0;
+    border-top-left-radius: .25rem;
+    border-bottom-left-radius: .25rem;
+    background-color: #EAE7DC;
+    border: 1px solid #9b9a97;
+    color: black;
+}
+
+.page-item:first-child .page-link:active, .page-item:first-child .page-link:target,
+.page-item:first-child .page-link:focus {
+    background-color: #cdcabf !important;
+    color: black !important;
+    outline: none !important;
+    border: 1px solid #cdcabf !important;
+    box-shadow: none !important;
+}
+
+.page-item:last-child .page-link:active, .page-item:last-child .page-link:target,
+.page-item:last-child .page-link:focus {
+    background-color: #cdcabf !important;
+    color: black !important;
+    outline: none !important;
+    border: 1px solid #cdcabf !important;
+    box-shadow: none !important;
+}
+
+div.restaurants-holder {
     padding-left: 20px;
     padding-right: 20px;
     text-align: center;
@@ -213,17 +275,86 @@ div.restaurant-holder {
     justify-content: center;
 }
 
+div.restaurant-info-holder {
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+hr {
+    border-top: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+div.restaurant-info-holder div {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+div.restaurant-info-holder img {
+    width: 100%;
+}
+
 div.restaurant-header {
     background-color: #d8c3a5;
     color: white;
-    font-family: "Magneto", sans-serif;
-    font-size: large;
+    font-family: "Lobster", sans-serif;
+    font-size: x-large;
     padding: 10px;
     border: 1px solid #d8c3a5;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     margin-left: 10%;
     width: 80%;
+}
+
+.col-personal-1 {
+    width: 8.33%;
+}
+
+.col-personal-2 {
+    width: 16.66%;
+}
+
+.col-personal-3 {
+    width: 25%;
+}
+
+.col-personal-4 {
+    width: 33.33%;
+}
+
+.col-personal-5 {
+    width: 41.66%;
+}
+
+.col-personal-6 {
+    width: 50%;
+}
+
+.col-personal-7 {
+    width: 58.33%;
+}
+
+.col-personal-8 {
+    width: 66.66%;
+}
+
+.col-personal-9 {
+    width: 75%;
+}
+
+.col-personal-10 {
+    width: 83.33%;
+}
+
+.col-personal-11 {
+    width: 91.66%;
+}
+
+.col-personal-12 {
+    width: 100%;
 }
 
 @media only screen and (max-width: 400px) {

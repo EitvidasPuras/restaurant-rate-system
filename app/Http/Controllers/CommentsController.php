@@ -39,8 +39,8 @@ class CommentsController extends Controller
         $token = (new Parser())->parse((string) $token);
 
         $validator = Validator::make($request->all(), [
-            'restaurant_id' => 'bail|required|digits:1|integer',
-            'text' => 'bail|required|max:255',
+            'restaurant_id' => 'bail|required',
+            'text' => 'bail|required|max:300',
         ]);
 
         if ($validator->fails()) {
