@@ -9,10 +9,8 @@
                 $(document).on('click', '#submitComment', function (e) {
                     e.preventDefault();
                     var commentText = $('#commentText').val();
-                    if (commentText) {
-                        var data = [];
-                        data['restaurant_id'] = "{{ $restaurant->id }}";
-                        data['text'] = commentText;
+                    var rating = $('#doRateRestaurant').val();
+                    if (commentText && rating) {
                         var url = "{{ route('comments.store') }}";
 
                         $.ajax({
@@ -23,23 +21,26 @@
                             url: url,
                             data: {
                                 restaurant_id: "{{ $restaurant->id }}",
-                                text: commentText
+                                text: commentText,
+                                rating: rating
                             },
                             success: function (data) {
                                 console.log(data);
                                 window.location.reload(true);
                             },
                             error: function (error) {
-                                for (var obj in error.responseJSON) {
-                                    $('#errors').append('<span>' + error.responseJSON[obj] + '</span>');
-                                }
-                                $('#errors').fadeIn();
-                                console.log(error.responseJSON);
+                                $('#errors').text(error.responseJSON).fadeIn('slow');
+                                setTimeout(function () {
+                                    $("#errors").fadeOut('slow');
+                                }, 2500);
                             }
 
                         });
                     } else {
-                        $('#errors').text('Comment field is required').show();
+                        $('#errors').text('Comment field and rating is required').fadeIn('slow');
+                        setTimeout(function () {
+                            $("#errors").fadeOut('slow');
+                        }, 2500);
                     }
                 });
 
@@ -55,42 +56,85 @@
     <hr>
 
     <div class="restaurant-info-holder col-personal-12">
-        <div class="col-personal-d-6 col-personal-s-6 col-personal-ms-12">
+        <div id="holdImage" class="col-personal-d-6 col-personal-s-6 col-personal-ms-12 col-personal-ss-12">
             <img src="{{asset("storage/restaurant_images/$restaurant->image")}}">
         </div>
 
-        <div class="col-personal-d-6 col-personal-s-6 col-personal-ms-12">
+        <div id="holdText" class="col-personal-d-6 col-personal-s-6 col-personal-ms-12">
             <p id="restaurantDescription"> {{$restaurant->description}}</p>
 
             <p id="restaurantTypeName"> Type: {{$restaurant->type->name}}</p>
             <p id="restaurantSeats"> Number of seats: {{ $restaurant->seats }}</p>
-            <p id="restaurantTotalRated"> Number of users who rated this restaurant: {{$restaurant->total_count}}</p>
-            <p id="restaurantAverage"> Average rating: {{$restaurant->average_rating}}</p>
+            <p id="restaurantAverage"> Average rating: <input id="input-3" name="input-3" step="0.1"
+                                                              value="{{ number_format($restaurant->average_rating, 1) }}"
+                                                              class="rating rating-loading col-personal-12 col-personal-ms-12 col-personal-ss-12"
+                                                              readonly> | Reviews: {{$restaurant->total_count}}</p>
         </div>
     </div>
 
     <hr>
 
-    <div class="comment-form-holder">
-        <form>
-            @csrf
+    @if(auth()->check())
+        <div class="comment-form-holder">
+            <form>
+                @csrf
 
-            <textarea id="commentText" tabindex="-1"
-                      class="form-control" name="commentText"
-                      cols="10" rows="5" placeholder="Type in a comment"
-            ></textarea>
+                <textarea id="commentText" tabindex="-1"
+                          class="form-control" name="commentText"
+                          cols="10" rows="5" placeholder="Type in a comment"
+                          maxlength="500"
+                ></textarea>
 
-            <a id="submitComment" class="btn btn-primary">
-                {{ __('Submit') }}
-            </a>
+                <div id="starsAndButton">
 
-        </form>
-    </div>
+                    <input id="doRateRestaurant" name="input-9"
+                           required class="rating rating-loading"
+                           data-min="0" data-max="5" data-step="1">
 
-    <div id="errors"></div>
+                    <div id="errors"></div>
 
-    <p> {{ $restaurant->comments }}</p>
-    <p> {{ $restaurant->ratings  }}</p>
+                    <button id="submitComment" class="btn btn-primary col-personal-ms-12">
+                        {{ __('Submit') }}
+                    </button>
+
+                </div>
+
+            </form>
+        </div>
+    @endif
+
+    @if($restaurant->comments->count() > 0)
+        <div class="col-personal-12 col-personal-ms-12 col-personal-ss-12">
+            @foreach($restaurant->comments as $comment )
+                <div class="comment-holder">
+                    <div id="commentHeader">
+                        <p id="commentUsername"
+                           class="col-personal-d-4 col-personal-s-4 col-personal-ms-12 col-personal-ss-12">{{ $comment->user->name }}</p>
+                        @foreach($restaurant->ratings as $rating)
+                            @if($comment->user_id == $rating->user_id)
+                                <p id="commentRating"
+                                   class="col-personal-d-4 col-personal-s-4 col-personal-ms-12 col-personal-ss-12">
+                                    <input id="showCommentRating" name="input-3" step="1"
+                                           value="{{ $rating->rating }}"
+                                           class="rating rating-loading"
+                                           readonly>
+                                </p>
+                            @endif
+                        @endforeach
+                        <p id="commentUpdatedAt"
+                           class="col-personal-d-4 col-personal-s-4 col-personal-ms-12 col-personal-ss-12"> {{ $comment->updated_at }}</p>
+                    </div>
+                    <div id="commentText">
+                        <p>{{ $comment->text }}</p>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    @else
+        <div class="no-content">
+            <h1> No reviews found </h1>
+        </div>
+    @endif
 
     </body>
 

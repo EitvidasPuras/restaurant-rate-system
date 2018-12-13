@@ -24,7 +24,7 @@ class Restaurant extends Model
     public function comments()
     {
         return $this->hasMany(Comment::class, 'restaurant_id', 'id')
-            ->orderBy('created_at');
+            ->orderBy('updated_at', 'desc');
     }
 
     public function ratings()

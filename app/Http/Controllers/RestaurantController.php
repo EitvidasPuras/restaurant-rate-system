@@ -135,26 +135,4 @@ class RestaurantController extends Controller
         }
         return response("", 404);
     }
-
-    public function rateRestaurant(Request $request)
-    {
-        $restaurant = Restaurant::find($request->restaurant_id);
-        $token = Cookie::get('JWT-TOKEN');
-        $token = (new Parser())->parse((string)$token);
-        $alreadyRated = DB::table('ratings')
-            ->where('user_id', '=', $token->getClaim('uid'))
-            ->where('restaurant_id', '=', $request->restaurant_id)
-            ->get();
-        if (!$alreadyRated->isEmpty()) {
-            return response("User already rated this restaurant", 400);
-        }
-        DB::table('ratings')->insert(
-            ['user_id' => $token->getClaim('uid'), 'restaurant_id' => $request->restaurant_id, 'rating' => $request->rating]
-        );
-
-        $newAverage = ($restaurant->total_count * $restaurant->average_rating + $request->rating) / ($restaurant->total_count + 1);
-        DB::table('restaurants')->where('id', $request->restaurant_id)
-            ->update(['total_count' => $restaurant->total_count + 1, 'average_rating' => $newAverage]);
-
-    }
 }

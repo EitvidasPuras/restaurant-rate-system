@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Restaurant;
 use Illuminate\Http\Request;
 use App\Comment;
 use Illuminate\Support\Facades\Validator;
 use Cookie;
 use Lcobucci\JWT\Parser;
 use Illuminate\Support\Facades\DB;
+use Lcobucci\JWT\Token;
 
 class CommentsController extends Controller
 {
@@ -35,24 +37,31 @@ class CommentsController extends Controller
      */
     public function store(Request $request)
     {
+        $restaurant = Restaurant::find($request->restaurant_id);
         $token = Cookie::get('JWT-TOKEN');
-        $token = (new Parser())->parse((string) $token);
+        $token = (new Parser())->parse((string)$token);
 
         $validator = Validator::make($request->all(), [
             'restaurant_id' => 'bail|required',
-            'text' => 'bail|required|max:300',
+            'text' => 'bail|required|max:501',
         ]);
 
         if ($validator->fails()) {
-            return response("", 400);
+            return response()->json("Comment validation failed", 400);
         }
 
-        $alreadyRated = DB::table('comments')
+        $alreadyCommented = DB::table('comments')
             ->where('user_id', '=', $token->getClaim('uid'))
             ->where('restaurant_id', '=', $request->restaurant_id)
             ->get();
-        if(!$alreadyRated->isEmpty()){
-            return response("User already commented on this restaurant", 400);
+
+        $alreadyRated = DB::table('ratings')
+            ->where('user_id', '=', $token->getClaim('uid'))
+            ->where('restaurant_id', '=', $request->restaurant_id)
+            ->get();
+
+        if (!$alreadyCommented->isEmpty() && !$alreadyRated->isEmpty()) {
+            return response()->json("You already reviewed this restaurant", 400);
         }
 
         $comment = new Comment;
@@ -60,7 +69,18 @@ class CommentsController extends Controller
         $comment->restaurant_id = $request->restaurant_id;
         $comment->text = $request->text;
         $comment->save();
-        return response("", 201);
+
+        DB::table('ratings')->insert(
+            ['user_id' => $token->getClaim('uid'),
+                'restaurant_id' => $request->restaurant_id,
+                'rating' => $request->rating]
+        );
+
+        $newAverage = ($restaurant->total_count * $restaurant->average_rating + $request->rating) / ($restaurant->total_count + 1);
+        DB::table('restaurants')->where('id', $request->restaurant_id)
+            ->update(['total_count' => $restaurant->total_count + 1, 'average_rating' => $newAverage]);
+
+        return response()->json("Success", 201);
     }
 
     /**
@@ -91,8 +111,8 @@ class CommentsController extends Controller
     public function update(Request $request, $id)
     {
         $token = Cookie::get('JWT-TOKEN');
-        $token = (new Parser())->parse((string) $token);
-        if(!$token->getClaim('admin')){
+        $token = (new Parser())->parse((string)$token);
+        if (!$token->getClaim('admin')) {
             return response("Not an admin", 400);
         }
 
@@ -117,8 +137,8 @@ class CommentsController extends Controller
     public function destroy($id)
     {
         $token = Cookie::get('JWT-TOKEN');
-        $token = (new Parser())->parse((string) $token);
-        if(!$token->getClaim('admin')){
+        $token = (new Parser())->parse((string)$token);
+        if (!$token->getClaim('admin')) {
             return response("Not an admin", 400);
         }
 

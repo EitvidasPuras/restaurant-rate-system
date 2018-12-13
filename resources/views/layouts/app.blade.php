@@ -22,6 +22,11 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{asset('css/newstyles.css')}}" rel="stylesheet">
 
+
+    <!-- Bootstrap-star-rating -->
+    <link href="{{ asset('css/star-rating.css') }}" media="all" rel="stylesheet" type="text/css" />
+    <script src="{{ asset('js/star-rating.js') }}" type="text/javascript"></script>
+
 </head>
 <body>
 <div id="app">

@@ -17,7 +17,7 @@ class CreateCommentsTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('restaurant_id');
-            $table->string('text');
+            $table->text('text');
             $table->timestamps();
         });
     }
