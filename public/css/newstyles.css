@@ -199,7 +199,7 @@ div#commentHeader {
 p#commentUpdatedAt {
     margin-bottom: 0;
     align-self: center;
-    padding-left: 6rem;
+    padding-left: 12rem;
 }
 
 p#commentUsername {
@@ -540,19 +540,6 @@ div.restaurant-header {
 @media only screen and (max-width: 600px) {
     /* For mobile phones: */
 
-    div#commentHeader {
-        background-image: linear-gradient(to right, #9b9a97 70%, white) !important;
-        color: white !important;
-        font-family: "Lobster", "Magneto", sans-serif !important; ;
-        font-size: 1.5rem !important;
-        padding: 10px !important;
-        border-top-left-radius: 5px !important;
-        border-top-right-radius: 5px !important;
-        margin-left: 1.5rem !important;
-        margin-right: 1.5rem !important;
-        display: block !important;
-    }
-
     [class*="col-"] {
         width: 50%;
     }
@@ -657,6 +644,9 @@ div.restaurant-header {
     }
 }
 
+@media only screen and (max-width: 768px) {
+}
+
 @media only screen and (min-width: 768px) {
     /* For desktop: */
     .col-personal-d-1 {
@@ -705,6 +695,48 @@ div.restaurant-header {
 
     .col-personal-d-12 {
         width: 100%;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    div#commentHeader {
+        background-image: linear-gradient(to right, #9b9a97 70%, white) !important;
+        color: white !important;
+        font-family: "Lobster", "Magneto", sans-serif !important; ;
+        font-size: 1.5rem !important;
+        padding: 10px !important;
+        border-top-left-radius: 5px !important;
+        border-top-right-radius: 5px !important;
+        margin-left: 1.5rem !important;
+        margin-right: 1.5rem !important;
+        display: block !important;
+    }
+
+    p#commentUpdatedAt {
+        padding-left: 0 !important;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin: 0 auto;
+    }
+
+    p#commentUsername {
+        margin-bottom: 0;
+        font-family: "Lobster", "Magneto", sans-serif;
+        font-size: 1.5rem;
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        padding-left: 0 !important;
+    }
+
+    p#commentRating {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin: 0 auto;
     }
 }
 

@@ -109,11 +109,11 @@
                 <div class="comment-holder">
                     <div id="commentHeader">
                         <p id="commentUsername"
-                           class="col-personal-d-4 col-personal-s-4 col-personal-ms-12 col-personal-ss-12">{{ $comment->user->name }}</p>
+                           class="col-personal-d-3 col-personal-s-3 col-personal-ms-12 col-personal-ss-12">{{ $comment->user->name }}</p>
                         @foreach($restaurant->ratings as $rating)
                             @if($comment->user_id == $rating->user_id)
                                 <p id="commentRating"
-                                   class="col-personal-d-4 col-personal-s-4 col-personal-ms-12 col-personal-ss-12">
+                                   class="col-personal-d-5 col-personal-s-5 col-personal-ms-12 col-personal-ss-12">
                                     <input id="showCommentRating" name="input-3" step="1"
                                            value="{{ $rating->rating }}"
                                            class="rating rating-loading"
