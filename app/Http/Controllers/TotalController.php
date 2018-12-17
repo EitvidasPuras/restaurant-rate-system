@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Restaurant;
+use App\Type;
 use Illuminate\Http\Request;
 use Cookie;
 use Illuminate\Support\Facades\Auth;
@@ -35,5 +36,24 @@ class TotalController extends Controller
         $restaurant = Restaurant::find($id);
         return view('restaurant')
             ->with('restaurant', $restaurant);
+    }
+
+    public function adminPanelIndex()
+    {
+        return view('admin.panel');
+    }
+
+    public function adminRestaurantsIndex()
+    {
+        $restaurants = Restaurant::orderBy('created_at', 'desc')->simplePaginate(6);
+        $types = Type::all();
+        return view('admin.restaurants')->with('restaurants', $restaurants)
+            ->with('types', $types);
+    }
+
+    public function adminUsersIndex()
+    {
+        $users = User::orderBy('created_at', 'desc')->simplePaginate(6);
+        return view('admin.users')->with('users', $users);
     }
 }

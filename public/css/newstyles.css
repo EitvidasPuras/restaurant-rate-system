@@ -141,9 +141,12 @@ body {
     text-align: left !important;
 }
 
-#restaurantImage {
+img#restaurantImage {
+    max-width: 80% !important;
     width: 80% !important;
     padding-bottom: 10px;
+    max-height: 45%;
+    height: 45%;
 }
 
 .card-image:hover {
@@ -313,9 +316,15 @@ div#errors {
     color: #e85a4f;
 }
 
+div.admin-form-button-holder div.admin-restaurant-errors {
+    display: none;
+    padding-right: 5rem;
+    align-self: center;
+    color: #e85a4f;
+}
+
 div.title-holder {
     color: white;
-    font-family: "Lobster", "Magneto", sans-serif;
     padding-left: 4%;
     background-image: linear-gradient(to right, #9b9a97 50%, white);
     height: 4rem;
@@ -324,7 +333,9 @@ div.title-holder {
 }
 
 div.title-holder h1 {
+    font-family: "Lobster", "Magneto", sans-serif;
     margin: 0;
+    font-size: 2.6rem;
 }
 
 .page-item:first-child .page-link {
@@ -357,6 +368,7 @@ div.title-holder h1 {
 div#holdImage {
     padding-left: 10px;
     padding-right: 10px;
+    align-self: center;
 }
 
 div#holdText {
@@ -378,6 +390,16 @@ div.restaurants-holder {
     justify-content: center;
 }
 
+div.admin-panel-cards-holder {
+    padding-left: 20px;
+    padding-right: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
 div.restaurant-info-holder {
     margin: auto;
     display: flex;
@@ -392,6 +414,35 @@ div.restaurant-info-holder .clear-rating {
 
 hr {
     border-top: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+p.dividr {
+    color: white;
+    font-family: "Lobster", "Magneto", sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 0;
+    margin-right: 5px;
+    padding-bottom: .32rem;
+    padding-top: .35rem;
+}
+
+div.type-holder {
+    position: absolute;
+    top: 100%;
+    z-index: 1000;
+    left: 15rem;
+    /*display: none;*/
+    min-width: 10rem;
+    padding: .5rem 0;
+    margin: .125rem 0 0;
+    font-size: .9rem;
+    color: #212529;
+    text-align: left;
+    list-style: none;
+    background-color: #d8c3a5;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-radius: .25rem;
 }
 
 div.restaurant-info-holder div div {
@@ -422,7 +473,7 @@ div.restaurant-info-holder img {
     width: 100%;
 }
 
-div.restaurant-header {
+div.name-header {
     background-color: #d8c3a5;
     color: white;
     font-family: "Lobster", "Magneto", sans-serif ;
@@ -433,6 +484,239 @@ div.restaurant-header {
     border-top-right-radius: 5px;
     margin-left: 10%;
     width: 80%;
+}
+
+div.admin-panel-card {
+    background-color: #d8c3a5;
+    color: white;
+    font-family: "Lobster", "Magneto", sans-serif;
+    font-size: x-large;
+    padding: 10px;
+    margin-left: 10%;
+    width: 80%;
+    height: 20rem;
+    margin-top: 2rem;
+    border-radius: 5px;
+}
+
+div.admin-panel-card h1 {
+    margin: 0;
+    text-align: center;
+    padding-top: 30px;
+}
+
+div.admin-panel-card-circle a:hover i, div.admin-panel-card-circle a:focus i,
+div.admin-panel-card-circle a:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    color: #9b9a97;
+}
+
+p#copyrightNotice {
+    text-align: center;
+    margin: 0;
+}
+
+div.admin-restaurants-holder {
+    padding-left: 20px;
+    padding-right: 20px;
+    /*display: flex;*/
+    /*flex-direction: row;*/
+    /*flex-wrap: wrap;*/
+    /*justify-content: center;*/
+}
+
+div.admin-restaurant-holder {
+    background-image: linear-gradient(to right, #9b9a97 70%, white);
+    color: white;
+    font-family: "Lobster", "Magneto", sans-serif;
+    font-size: 1.5rem;
+    padding: 10px;
+    border-radius: 5px;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+div.admin-restaurant-holder div#restaurantMultiLineInfo {
+    align-self: center;
+    text-align: center;
+}
+
+div.admin-restaurant-holder p#restaurantName {
+    margin: 0;
+}
+
+div.admin-restaurant-holder p#restaurantDescription {
+    margin: 0;
+    align-self: center;
+    font-size: 1.1rem;
+}
+
+div.admin-restaurant-holder p#restaurantType {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+div.admin-restaurant-holder p#restaurantSeats {
+    margin: 0 !important;
+    font-size: 1.1rem;
+}
+
+div.admin-restaurant-holder p#restaurantRating {
+    margin: 0;
+    padding-left: 4px;
+    font-size: 1.4rem;
+}
+
+div.admin-restaurant-holder p#restaurantTotal {
+    margin: 0;
+    font-size: 1.4rem;
+}
+
+div.admin-restaurant-holder img {
+    max-width: 19rem;
+}
+
+div.admin-restaurant-holder p#restaurantCreatedAt {
+    margin: 0;
+    align-self: center;
+    padding-left: 15px;
+}
+
+div.admin-restaurant-holder p#restaurantEdit {
+    margin: 0;
+    align-self: center;
+    text-align: right;
+}
+
+div.get-that-footer-down {
+    height: 236px;
+}
+
+div.get-that-footer-down#registerFooter {
+    height: 129px;
+}
+
+div.admin-restaurant-holder p#restaurantEdit a:hover i, div.admin-restaurant-holder p#restaurantEdit a:focus i,
+div.admin-restaurant-holder p#restaurantEdit a:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    color: #9b9a97;
+}
+
+div.admin-restaurant-holder p#restaurantEdit a {
+    color: inherit;
+    cursor: pointer;
+}
+
+div.admin-restaurant-holder p#restaurantDelete a:hover i, div.admin-restaurant-holder p#restaurantDelete a:focus i,
+div.admin-restaurant-holder p#restaurantDelete a:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    color: #9b9a97;
+}
+
+div.admin-restaurant-holder p#restaurantDelete a {
+    color: inherit;
+    cursor: pointer;
+}
+
+div.admin-restaurant-holder p#restaurantDelete {
+    margin: 0;
+    align-self: center;
+    padding-left: 25px;
+    color: #e85a4f;
+}
+
+div.admin-panel-card-circle {
+    height: 10rem;
+    width: 10rem;
+    background-color: #EAE7DC;
+    border-radius: 50%;
+    margin-right: auto;
+    margin-left: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+}
+
+div.admin-panel-card-circle i {
+    color: #d8c3a5;
+    font-size: 5rem;
+}
+
+div#adminRestaurantForm {
+    padding: 0 10px 0 10px;
+}
+
+div.admin-form-button-holder {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    padding-right: 1.3rem;
+}
+
+div.admin-form-button-holder button {
+    width: 8rem;
+}
+
+div.admin-form-button-holder button#submitDeleteRestaurant {
+    width: 15rem;
+    height: 3rem;
+}
+
+div.admin-form-button-holder#deleteRestaurantButton {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-right: 0;
+}
+
+div.admin-form-button-holder#editRestaurantButton {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding-right: 1.3rem;
+    padding-left: 20px;
+}
+
+div#createRestaurantButton button {
+    width: 10rem;
+    height: 2.5rem;
+}
+
+div.form-personal-row {
+    align-items: center;
+    margin-bottom: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+div.form-personal-row input {
+    width: 38rem;
+}
+
+div.form-personal-row textarea {
+    width: 38rem;
+}
+
+div.form-personal-row select {
+    width: 38rem;
+}
+
+div.form-personal-row label {
+    margin-bottom: 0;
 }
 
 .col-personal-1 {
@@ -484,6 +768,7 @@ div.restaurant-header {
 }
 
 @media only screen and (max-width: 400px) {
+
     [class*="col-"] {
         width: 100%;
     }
@@ -539,9 +824,44 @@ div.restaurant-header {
 
 @media only screen and (max-width: 600px) {
     /* For mobile phones: */
+    /*[class*="col-"] {*/
+    /*width: 50%;*/
+    /*}*/
+    div.admin-new-edit-restaurant {
+        position: absolute;
+        background-color: rgba(216, 195, 165, 0.9);
+        width: 22rem;
+        height: 42rem;
+        z-index: 1000;
+        margin-right: auto;
+        margin-left: auto;
+        left: 0;
+        right: 0;
+        top: 20rem;
+        padding: 20px 0 20px 0;
+        display: none;
+    }
 
-    [class*="col-"] {
-        width: 50%;
+    div.admin-deletion-restaurant {
+        position: fixed;
+        background-color: rgba(216, 195, 165, 0.9);
+        width: 25rem;
+        height: 12rem;
+        z-index: 1000;
+        margin-right: auto;
+        margin-left: auto;
+        left: 0;
+        right: 0;
+        top: 13rem;
+        padding: 20px 0 20px 0;
+        display: none;
+    }
+
+    div.title-holder button {
+        margin-left: auto;
+        margin-right: 2rem;
+        height: 3rem;
+        width: 10rem;
     }
 
     .col-personal-ms-1 {
@@ -594,6 +914,44 @@ div.restaurant-header {
 }
 
 @media only screen and (min-width: 600px) {
+
+    div.admin-deletion-restaurant {
+        position: fixed;
+        background-color: rgba(216, 195, 165, 0.9);
+        width: 30rem;
+        height: 12rem;
+        z-index: 1000;
+        margin-right: auto;
+        margin-left: auto;
+        left: 0;
+        right: 0;
+        top: 13rem;
+        padding: 20px 0 20px 0;
+        display: none;
+    }
+
+    div.admin-new-edit-restaurant {
+        position: absolute;
+        background-color: rgba(216, 195, 165, 0.9);
+        width: 35rem;
+        height: 41rem;
+        z-index: 1000;
+        margin-right: auto;
+        margin-left: auto;
+        left: 0;
+        right: 0;
+        top: 20rem;
+        padding: 20px 0 20px 0;
+        display: none;
+    }
+
+    div.title-holder button {
+        margin-left: auto;
+        margin-right: 2rem;
+        height: 3rem;
+        width: 10rem;
+    }
+
     /* For tablets: */
     .col-personal-s-1 {
         width: 8.33%;
@@ -644,11 +1002,23 @@ div.restaurant-header {
     }
 }
 
-@media only screen and (max-width: 768px) {
-}
-
 @media only screen and (min-width: 768px) {
-    /* For desktop: */
+
+    div.admin-new-edit-restaurant {
+        position: absolute;
+        background-color: rgba(216, 195, 165, 0.9);
+        width: 40rem;
+        height: 41rem;
+        z-index: 1000;
+        margin-right: auto;
+        margin-left: auto;
+        left: 0;
+        right: 0;
+        top: 20rem;
+        padding: 20px 0 20px 0;
+        display: none;
+    }
+
     .col-personal-d-1 {
         width: 8.33%;
     }
@@ -698,6 +1068,72 @@ div.restaurant-header {
     }
 }
 
+@media only screen and (min-width: 992px) {
+
+    div.admin-new-edit-restaurant {
+        position: absolute;
+        background-color: rgba(216, 195, 165, 0.9);
+        width: 40rem;
+        height: 41rem;
+        z-index: 1000;
+        margin-right: auto;
+        margin-left: auto;
+        left: 0;
+        right: 0;
+        top: 20rem;
+        padding: 20px 0 20px 0;
+        display: none;
+    }
+
+    .col-personal-dd-1 {
+        width: 8.33%;
+    }
+
+    .col-personal-dd-2 {
+        width: 16.66%;
+    }
+
+    .col-personal-dd-3 {
+        width: 25%;
+    }
+
+    .col-personal-dd-4 {
+        width: 33.33%;
+    }
+
+    .col-personal-dd-5 {
+        width: 41.66%;
+    }
+
+    .col-personal-dd-6 {
+        width: 50%;
+    }
+
+    .col-personal-dd-7 {
+        width: 58.33%;
+    }
+
+    .col-personal-dd-8 {
+        width: 66.66%;
+    }
+
+    .col-personal-dd-9 {
+        width: 75%;
+    }
+
+    .col-personal-dd-10 {
+        width: 83.33%;
+    }
+
+    .col-personal-dd-11 {
+        width: 91.66%;
+    }
+
+    .col-personal-dd-12 {
+        width: 100%;
+    }
+}
+
 @media only screen and (max-width: 992px) {
     div#commentHeader {
         background-image: linear-gradient(to right, #9b9a97 70%, white) !important;
@@ -737,6 +1173,80 @@ div.restaurant-header {
         flex-direction: row;
         justify-content: center;
         margin: 0 auto;
+    }
+
+}
+
+@media only screen and (min-width: 1200px) {
+
+    div.admin-new-edit-restaurant {
+        position: absolute;
+        background-color: rgba(216, 195, 165, 0.9);
+        width: 50rem;
+        height: 34rem;
+        z-index: 1000;
+        margin-right: auto;
+        margin-left: auto;
+        left: 0;
+        right: 0;
+        top: 20rem;
+        padding: 20px 0 20px 0;
+        display: none;
+    }
+
+    div.title-holder button {
+        margin-left: auto;
+        margin-right: 10rem;
+        height: 3rem;
+        width: 10rem;
+    }
+
+    .col-personal-dx-1 {
+        width: 8.33%;
+    }
+
+    .col-personal-dx-2 {
+        width: 16.66%;
+    }
+
+    .col-personal-dx-3 {
+        width: 25%;
+    }
+
+    .col-personal-dx-4 {
+        width: 33.33%;
+    }
+
+    .col-personal-dx-5 {
+        width: 41.66%;
+    }
+
+    .col-personal-dx-6 {
+        width: 50%;
+    }
+
+    .col-personal-dx-7 {
+        width: 58.33%;
+    }
+
+    .col-personal-dx-8 {
+        width: 66.66%;
+    }
+
+    .col-personal-dx-9 {
+        width: 75%;
+    }
+
+    .col-personal-dx-10 {
+        width: 83.33%;
+    }
+
+    .col-personal-dx-11 {
+        width: 91.66%;
+    }
+
+    .col-personal-dx-12 {
+        width: 100%;
     }
 }
 

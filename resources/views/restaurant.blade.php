@@ -25,7 +25,6 @@
                                 rating: rating
                             },
                             success: function (data) {
-                                console.log(data);
                                 window.location.reload(true);
                             },
                             error: function (error) {
@@ -56,7 +55,7 @@
     <hr>
 
     <div class="restaurant-info-holder col-personal-12">
-        <div id="holdImage" class="col-personal-d-6 col-personal-s-6 col-personal-ms-12 col-personal-ss-12">
+        <div id="holdImage" class="col-personal-dx-6 col-personal-dd-6 col-personal-d-6">
             <img src="{{asset("storage/restaurant_images/$restaurant->image")}}">
         </div>
 

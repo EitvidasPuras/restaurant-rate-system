@@ -74,4 +74,5 @@
         </div>
     </div>
 </div>
+<div id="registerFooter" class="get-that-footer-down"></div>
 @endsection

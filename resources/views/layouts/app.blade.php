@@ -27,14 +27,20 @@
     <link href="{{ asset('css/star-rating.css') }}" media="all" rel="stylesheet" type="text/css" />
     <script src="{{ asset('js/star-rating.js') }}" type="text/javascript"></script>
 
+    <!-- FontAwesome -->
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+          integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+
 </head>
 <body>
 <div id="app">
     @include('navbar')
-    {{--<main class="py-4">--}}
     @yield('content')
-    {{--</main>--}}
     @stack('scripts')
 </div>
 </body>
+<footer class="card-footer">
+    <p id="copyrightNotice"> Copyright © {{ date('Y') }}. All rights reserved.</p>
+</footer>
 </html>

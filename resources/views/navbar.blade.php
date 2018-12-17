@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
-            {{ config('app.name', 'Hotel') }}
+            {{ config('app.name', 'RestRate') }}
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -11,7 +11,12 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
-
+                {{--<li class="nav-item">--}}
+                {{--<p class="dividr"> | </p>--}}
+                {{--</li>--}}
+                {{--<li class="nav-item">--}}
+                {{--<a class="nav-link" href="{{ url('/') }}"> {{ __('Restaurant types') }}</a>--}}
+                {{--</li>--}}
             </ul>
 
             <!-- Right Side Of Navbar -->
@@ -35,6 +40,9 @@
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('hub') }}"> {{ __('Hub') }}</a>
+                                @if(Auth::user()->is_admin)
+                                    <a class="dropdown-item" href="{{ route('adminPanel') }}"> {{ __('Panel') }}</a>
+                                @endif
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -52,4 +60,10 @@
             </ul>
         </div>
     </div>
+    {{--<div class="type-holder">--}}
+    {{--@foreach($types as $type)--}}
+    {{--<a class="dropdown-item" href=""> {{ $type->name }} </a>--}}
+
+    {{--@endforeach--}}
+    {{--</div>--}}
 </nav>

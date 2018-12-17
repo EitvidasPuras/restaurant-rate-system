@@ -45,26 +45,38 @@ class RestaurantController extends Controller
         $token = Cookie::get('JWT-TOKEN');
         $token = (new Parser())->parse((string)$token);
         if (!$token->getClaim('admin')) {
-            return response("Not an admin", 400);
+            return response()->json("Not an admin", 400);
         }
         $validator = Validator::make($request->all(), [
-            'name' => 'bail|required|max:255',
-            'description' => 'bail|required|max:255',
-            'seats' => 'bail|required|digits_between:1,3|integer',
-            'type_id' => 'bail|required|digits:1|integer',
+            'name' => 'bail|required|max:16',
+            'description' => 'bail|required|max:601',
+            'image' => 'bail|mimes:jpg,jpeg,png|required|max:2048',
+            'seats' => 'bail|required',
+            'type_id' => 'bail|required',
         ]);
 
         if ($validator->fails()) {
-            return response("", 400);
+            return response()->json("Validation failed", 400);
         }
+
+        if ($request->hasFile('image')) {
+            $fileNameWithExtension = $request->file('image')->getClientOriginalName();
+            $fileName = pathinfo($fileNameWithExtension, PATHINFO_FILENAME);
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $fileNameToStore = $fileName . '_' . time() . '.' . $extension;
+            $request->file('image')->storeAs('public/restaurant_images/', $fileNameToStore);
+        } else {
+            $fileNameToStore = 'placeholder.jpeg';
+        }
+
         $restaurant = new Restaurant;
         $restaurant->name = $request->name;
         $restaurant->description = $request->description;
-        $restaurant->image = $request->image;
+        $restaurant->image = $fileNameToStore;
         $restaurant->seats = $request->seats;
         $restaurant->type_id = $request->type_id;
         $restaurant->save();
-        return response("", 201);
+        return response()->json("Success", 201);
     }
 
     /**
@@ -95,21 +107,46 @@ class RestaurantController extends Controller
         $token = Cookie::get('JWT-TOKEN');
         $token = (new Parser())->parse((string)$token);
         if (!$token->getClaim('admin')) {
-            return response("Not an admin", 400);
+            return response()->json("Not an admin", 400);
         }
 
-        $restaurant = Restaurant::findOrFail($id);
         $validator = Validator::make($request->all(), [
-            'name' => 'bail|required|max:255',
-            'description' => 'bail|required|max:255',
-            'seats' => 'bail|required|digits_between:1,3|integer',
-            'type_id' => 'bail|required|digits:1|integer',
+            'name' => 'bail|required|max:16',
+            'description' => 'bail|required|max:601',
+            'image' => 'bail|mimes:jpg,jpeg,png|max:2048',
+            'seats' => 'bail|required',
+            'type_id' => 'bail|required',
         ]);
 
         if ($validator->fails()) {
-            return response($validator->errors(), 400);
+            return response()->json($validator->errors(), 400);
         }
-        $restaurant->update($request->all());
+
+        $restaurant = Restaurant::findOrFail($id);
+
+        if ($request->hasFile('image')) {
+            $fileNameWithExtension = $request->file('image')->getClientOriginalName();
+            $fileName = pathinfo($fileNameWithExtension, PATHINFO_FILENAME);
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $fileNameToStore = $fileName . '_' . time() . '.' . $extension;
+            $request->file('image')->storeAs('public/restaurant_images/', $fileNameToStore);
+
+            $restaurant->name = $request->name;
+            $restaurant->description = $request->description;
+            $restaurant->image = $fileNameToStore;
+            $restaurant->seats = $request->seats;
+            $restaurant->type_id = $request->type_id;
+            $restaurant->save();
+        } else {
+            $restaurant->name = $request->name;
+            $restaurant->description = $request->description;
+            $restaurant->seats = $request->seats;
+            $restaurant->type_id = $request->type_id;
+            $restaurant->save();
+        }
+
+//        $restaurant->update($request->all());
+        return response()->json("Success", 201);
     }
 
     /**
@@ -123,7 +160,7 @@ class RestaurantController extends Controller
         $token = Cookie::get('JWT-TOKEN');
         $token = (new Parser())->parse((string)$token);
         if (!$token->getClaim('admin')) {
-            return response("Not an admin", 400);
+            return response()->json("Not an admin", 400);
         }
 
         $restaurant = Restaurant::find($id);
@@ -131,8 +168,8 @@ class RestaurantController extends Controller
             $restaurant->delete();
             DB::table('comments')->where('restaurant_id', '=', $id)->delete();
             DB::table('ratings')->where('restaurant_id', '=', $id)->delete();
-            return response("", 200);
+            return response()->json("Success", 200);
         }
-        return response("", 404);
+        return response()->json("Restaurant not found", 404);
     }
 }

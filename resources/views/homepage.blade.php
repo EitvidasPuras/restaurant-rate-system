@@ -9,8 +9,8 @@
     @if($restaurants->count() > 0)
         <div class="restaurants-holder col-personal-12">
             @foreach( $restaurants as $restaurant)
-                <div class="col-personal-d-4 col-personal-s-6 col-personal-ms-12">
-                    <div class="restaurant-header col-personal-d-4 col-personal-s-6 col-personal-ms-12">{{ $restaurant->name }}</div>
+                <div class="col-personal-dx-4 col-personal-dd-4 col-personal-d-6">
+                    <div class="name-header col-personal-dx-4 col-personal-dd-4 col-personal-ms-12">{{ $restaurant->name }}</div>
                     <a href="{{ route('showRestaurant', $restaurant->id) }}">
                         <img id="restaurantImage" src="{{asset("storage/restaurant_images/$restaurant->image")}}">
                     </a>
@@ -26,6 +26,6 @@
         </div>
     @endif
 
-
     </body>
+
 @endsection
