@@ -27,7 +27,18 @@ class TotalController extends Controller
             return redirect('/loginwithtoken');
         }
 
-        $restaurants = DB::table('restaurants')->simplePaginate(6);
+        $restaurants = DB::table('restaurants')
+            ->orderBy('average_rating', 'desc')
+            ->simplePaginate(6);
+        return view('homepage')->with('restaurants', $restaurants);
+    }
+
+    public function homeIndexByType($id)
+    {
+        $restaurants = DB::table('restaurants')
+            ->where('type_id', '=', $id)
+            ->orderBy('average_rating', 'desc')
+            ->simplePaginate(6);
         return view('homepage')->with('restaurants', $restaurants);
     }
 
@@ -55,5 +66,11 @@ class TotalController extends Controller
     {
         $users = User::orderBy('created_at', 'desc')->simplePaginate(6);
         return view('admin.users')->with('users', $users);
+    }
+
+    public function adminTypesIndex()
+    {
+        $types = Type::orderBy('created_at', 'desc')->simplePaginate(8);
+        return view('admin.types')->with('types', $types);
     }
 }

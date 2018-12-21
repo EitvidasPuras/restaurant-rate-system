@@ -21,8 +21,10 @@ Route::group(['middleware' => ['jwt.verify', 'check.admin'], 'prefix' => 'admin/
     Route::get('panel', 'TotalController@adminPanelIndex')->name('adminPanel');
     Route::get('restaurants', 'TotalController@adminRestaurantsIndex')->name('adminRestaurants');
     Route::get('users', 'TotalController@adminUsersIndex')->name('adminUsers');
+    Route::get('types', 'TotalController@adminTypesIndex')->name('adminTypes');
 });
 
 Route::get('/loginwithtoken', 'JwtController@loginUsingToken')->middleware('jwt.verify')->name('loginWithToken');
 Route::get('/{id}', 'TotalController@showRestaurant')->name('showRestaurant');
 Route::get('/', 'TotalController@homeIndex')->name('home');
+Route::get('/type/{id}', 'TotalController@homeIndexByType')->name('homeByType');

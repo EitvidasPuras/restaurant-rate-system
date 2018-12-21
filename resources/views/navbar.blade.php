@@ -1,3 +1,20 @@
+<head>
+    <script>
+
+        $(document).ready(function (e) {
+            $('#holdingTypesForJQ').mouseenter(function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                $('.type-holder').fadeIn('slow');
+                $(this).toggleClass('popup-active');
+            }).mouseleave(function (e) {
+                $('.type-holder').fadeOut('slow');
+                $(this).removeClass('popup-active');
+            });
+        });
+    </script>
+</head>
+
 <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
@@ -10,14 +27,21 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
-        {{--<ul class="navbar-nav mr-auto">--}}
-                {{--<li class="nav-item">--}}
-                {{--<p class="dividr"> | </p>--}}
-                {{--</li>--}}
-                {{--<li class="nav-item">--}}
-        {{--<a id="restTypes" class="nav-link" href="{{ url('/') }}"> {{ __('Restaurant types') }}</a>--}}
-                {{--</li>--}}
-        {{--</ul>--}}
+            <div id="holdingTypesForJQ">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <p class="dividr"> | </p>
+                    </li>
+                    <li class="nav-item">
+                        <a id="restTypes" class="nav-link"> {{ __('Restaurant types') }}</a>
+                    </li>
+                </ul>
+                <div class="type-holder">
+                    @foreach($types as $type)
+                        <a class="dropdown-item" href="{{ route('homeByType', $type->id) }}"> {{ $type->name }} </a>
+                    @endforeach
+                </div>
+            </div>
 
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
@@ -60,10 +84,4 @@
             </ul>
         </div>
     </div>
-    {{--<div class="type-holder">--}}
-    {{--@foreach($types as $type)--}}
-    {{--<a class="dropdown-item" href=""> {{ $type->name }} </a>--}}
-
-    {{--@endforeach--}}
-    {{--</div>--}}
 </nav>

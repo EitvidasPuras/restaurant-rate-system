@@ -133,6 +133,7 @@
 
 body {
     background-color: #EAE7DC;
+    margin-bottom: 60px;
 }
 
 .card-image {
@@ -316,12 +317,18 @@ div#errors {
     color: #e85a4f;
 }
 
-div.admin-form-button-holder div.admin-restaurant-errors {
+div.admin-form-button-holder div.admin-object-errors {
     display: none;
     padding-right: 5rem;
     align-self: center;
     color: #e85a4f;
 }
+
+div.admin-form-button-holder div#errorsEditRestaurant {
+    padding-right: 0;
+}
+
+
 
 div.title-holder {
     color: white;
@@ -428,7 +435,7 @@ p.dividr {
 
 div.type-holder {
     position: absolute;
-    top: 100%;
+    top: 95%;
     z-index: 1000;
     left: 15rem;
     display: none;
@@ -443,6 +450,10 @@ div.type-holder {
     background-clip: padding-box;
     border: 1px solid rgba(0, 0, 0, .15);
     border-radius: .25rem;
+}
+
+a#restTypes {
+    cursor: pointer;
 }
 
 div.restaurant-info-holder div div {
@@ -517,7 +528,17 @@ p#copyrightNotice {
     margin: 0;
 }
 
-div.admin-restaurants-holder {
+footer.card-footer {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    padding: .75rem 1.25rem;
+    background-color: rgb(180, 180, 180);
+    border-top: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+div.admin-objects-holder {
     padding-left: 20px;
     padding-right: 20px;
     /*display: flex;*/
@@ -526,7 +547,7 @@ div.admin-restaurants-holder {
     /*justify-content: center;*/
 }
 
-div.admin-restaurant-holder {
+div.admin-object-holder {
     background-image: linear-gradient(to right, #9b9a97 70%, white);
     color: white;
     font-family: "Lobster", "Magneto", sans-serif;
@@ -542,91 +563,94 @@ div.admin-restaurant-holder {
     justify-content: center;
 }
 
-div.admin-restaurant-holder div#restaurantMultiLineInfo {
+div.admin-object-holder p#typeName {
+    margin: 0;
     align-self: center;
     text-align: center;
 }
 
-div.admin-restaurant-holder p#restaurantName {
+div.admin-object-holder p#typeCreatedAt {
+    margin: 0;
+    align-self: center;
+}
+
+div.admin-object-holder div#restaurantMultiLineInfo {
+    align-self: center;
+    text-align: center;
+}
+
+div.admin-object-holder p#restaurantName {
     margin: 0;
 }
 
-div.admin-restaurant-holder p#restaurantDescription {
+div.admin-object-holder p#restaurantDescription {
     margin: 0;
     align-self: center;
     font-size: 1.1rem;
 }
 
-div.admin-restaurant-holder p#restaurantType {
+div.admin-object-holder p#restaurantType {
     margin: 0;
     font-size: 1.2rem;
 }
 
-div.admin-restaurant-holder p#restaurantSeats {
+div.admin-object-holder p#restaurantSeats {
     margin: 0 !important;
     font-size: 1.1rem;
 }
 
-div.admin-restaurant-holder p#restaurantRating {
+div.admin-object-holder p#restaurantRating {
     margin: 0;
     padding-left: 4px;
     font-size: 1.4rem;
 }
 
-div.admin-restaurant-holder p#restaurantTotal {
+div.admin-object-holder p#restaurantTotal {
     margin: 0;
     font-size: 1.4rem;
 }
 
-div.admin-restaurant-holder img {
+div.admin-object-holder img {
     max-width: 19rem;
 }
 
-div.admin-restaurant-holder p#restaurantCreatedAt {
+div.admin-object-holder p#restaurantCreatedAt {
     margin: 0;
     align-self: center;
     padding-left: 15px;
 }
 
-div.admin-restaurant-holder p#restaurantEdit {
+div.admin-object-holder p#objectEdit {
     margin: 0;
     align-self: center;
     text-align: right;
 }
 
-div.get-that-footer-down {
-    height: 236px;
-}
-
-div.get-that-footer-down#registerFooter {
-    height: 129px;
-}
-
-div.admin-restaurant-holder p#restaurantEdit a:hover i, div.admin-restaurant-holder p#restaurantEdit a:focus i,
-div.admin-restaurant-holder p#restaurantEdit a:focus {
+div.admin-object-holder p#objectEdit a:hover i, div.admin-object-holder p#objectEdit a:focus i,
+div.admin-object-holder p#objectEdit a:focus {
     outline: none !important;
     box-shadow: none !important;
     color: #9b9a97;
 }
 
-div.admin-restaurant-holder p#restaurantEdit a {
+div.admin-object-holder p#objectEdit a {
     color: inherit;
     cursor: pointer;
 }
 
-div.admin-restaurant-holder p#restaurantDelete a:hover i, div.admin-restaurant-holder p#restaurantDelete a:focus i,
-div.admin-restaurant-holder p#restaurantDelete a:focus {
+div.admin-object-holder p#objectDelete a:hover i, div.admin-object-holder p#objectDelete a:focus i,
+div.admin-object-holder p#objectDelete a:focus {
     outline: none !important;
     box-shadow: none !important;
     color: #9b9a97;
 }
 
-div.admin-restaurant-holder p#restaurantDelete a {
+div.admin-object-holder p#objectDelete a {
     color: inherit;
     cursor: pointer;
 }
 
-div.admin-restaurant-holder p#restaurantDelete {
+div.admin-object-holder p#objectDelete {
     margin: 0;
     align-self: center;
     padding-left: 25px;
@@ -651,7 +675,7 @@ div.admin-panel-card-circle i {
     font-size: 5rem;
 }
 
-div#adminRestaurantForm {
+div#adminObjectForm {
     padding: 0 10px 0 10px;
 }
 
@@ -667,9 +691,28 @@ div.admin-form-button-holder button {
     width: 8rem;
 }
 
+div.admin-form-button-holder#createTypeButton {
+    padding-right: 0.4rem;
+}
+
+div.admin-form-button-holder#editTypeButton {
+    padding-right: 0.4rem;
+}
+
 div.admin-form-button-holder button#submitDeleteRestaurant {
     width: 15rem;
     height: 3rem;
+}
+
+div.admin-form-button-holder button#submitDeleteType {
+    width: 15rem;
+    height: 3rem;
+}
+
+label#infoAboutDeletion {
+    display: flex;
+    justify-content: center;
+    font-size: 1.1rem;
 }
 
 div.admin-form-button-holder#deleteRestaurantButton {
@@ -703,20 +746,56 @@ div.form-personal-row {
     justify-content: center;
 }
 
-div.form-personal-row input {
+div.admin-new-edit-restaurant div.form-personal-row input {
     width: 38rem;
 }
 
-div.form-personal-row textarea {
+div.admin-new-edit-type div.form-personal-row input {
+    width: 23rem;
+}
+
+div.admin-new-edit-restaurant div.form-personal-row textarea {
     width: 38rem;
 }
 
-div.form-personal-row select {
+div.admin-new-edit-restaurant div.form-personal-row select {
     width: 38rem;
 }
 
 div.form-personal-row label {
     margin-bottom: 0;
+}
+
+div.admin-new-edit-type {
+    position: absolute;
+    background-color: rgba(216, 195, 165, 0.9);
+    width: 30rem;
+    height: 13.2rem;
+    z-index: 1000;
+    margin-right: auto;
+    margin-left: auto;
+    left: 0;
+    right: 0;
+    top: 14rem;
+    padding: 20px 0 20px 0;
+    display: none;
+    border: 1px solid gray;
+}
+
+div.admin-deletion-type {
+    position: fixed;
+    background-color: rgba(216, 195, 165, 0.9);
+    width: 30rem;
+    height: 13.5rem;
+    z-index: 1000;
+    margin-right: auto;
+    margin-left: auto;
+    left: 0;
+    right: 0;
+    top: 13rem;
+    padding: 20px 0 20px 0;
+    display: none;
+    border: 1px solid gray;
 }
 
 .col-personal-1 {

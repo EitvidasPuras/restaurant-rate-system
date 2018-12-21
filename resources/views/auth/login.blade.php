@@ -75,5 +75,4 @@
             </div>
         </div>
     </div>
-    <div class="get-that-footer-down"></div>
 @endsection

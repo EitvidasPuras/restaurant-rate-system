@@ -7,6 +7,7 @@
         @push('scripts')
             <script>
 
+                // New restaurant request
                 $(document).on('click', '#submitRestaurant', function (e) {
                     e.preventDefault();
                     var rname = $('#restaurantNameInput').val();
@@ -57,6 +58,7 @@
                     }
                 });
 
+                // Open edit restaurant form
                 $(document).on('click', '#openEditRestaurantForm', function (e) {
                     e.preventDefault();
                     e.stopPropagation();
@@ -90,6 +92,7 @@
                     });
                 });
 
+                // Edit restaurant request
                 $(document).on('click', '#submitEditedRestaurant', function (e) {
                     e.preventDefault();
                     var rname = $('#restaurantNameInputEdit').val();
@@ -183,6 +186,7 @@
                     }
                 });
 
+                // Close edit restaurant form
                 $(document).on('click', function (e) {
                     if ($(e.target).closest('#editRestaurantWindow').length > 0) {
                     } else {
@@ -191,6 +195,7 @@
                     }
                 });
 
+                // Open new restaurant form
                 $(document).on('click', '#openNewRestaurantForm', function (e) {
                     e.preventDefault();
                     e.stopPropagation();
@@ -198,6 +203,7 @@
                     $('#openNewRestaurantForm').toggleClass('popup-active');
                 });
 
+                // Close new restaurant form
                 $(document).on('click', function (e) {
                     if ($(e.target).closest('#newRestaurantCreation').length > 0) {
                     } else {
@@ -206,6 +212,7 @@
                     }
                 });
 
+                // Open delete restaurant form
                 $(document).on('click', '#openDeleteRestaurantConfirmation', function (e) {
                     e.preventDefault();
                     e.stopPropagation();
@@ -229,6 +236,7 @@
                     });
                 });
 
+                // Close delete restaurant form
                 $(document).on('click', function (e) {
                     if ($(e.target).closest('#deleteRestaurantWindow').length > 0) {
                     } else {
@@ -237,6 +245,7 @@
                     }
                 });
 
+                // Delete restaurant request
                 $(document).on('click', '#submitDeleteRestaurant', function (e) {
                     e.preventDefault();
 
@@ -244,7 +253,7 @@
                     formData.append('_method', 'DELETE');
 
                     var rid = $('#frid').val();
-                    var url = "{{ route('restaurants.update', '?id') }}";
+                    var url = "{{ route('restaurants.destroy', '?id') }}";
                     url = url.replace('?id', rid);
 
                     $.ajax({
@@ -282,9 +291,9 @@
     <hr>
 
     @if($restaurants->count() > 0)
-        <div class="admin-restaurants-holder col-personal-12">
+        <div class="admin-objects-holder col-personal-12">
             @foreach($restaurants as $restaurant)
-                <div class="admin-restaurant-holder">
+                <div class="admin-object-holder">
                     <div class="col-personal-dx-3 col-personal-dd-4 col-personal-d-5 col-personal-s-7">
                         <img id="restaurantImag" src="{{asset("storage/restaurant_images/$restaurant->image")}}">
                     </div>
@@ -317,14 +326,14 @@
                        class="col-personal-dx-2 col-personal-dd-3 col-personal-d-3 col-personal-s-6">
                         {{ $restaurant->created_at }}
                     </p>
-                    <p id="restaurantEdit"
+                    <p id="objectEdit"
                        class="col-personal-dx-1 col-personal-dd-1 col-personal-d-1 col-personal-s-2">
                         <a id="openEditRestaurantForm"
                            data-r-id="{{ $restaurant->id }}">
                             <i class="fas fa-edit"></i>
                         </a>
                     </p>
-                    <p id="restaurantDelete"
+                    <p id="objectDelete"
                        class="col-personal-dx-1 col-personal-dd-1 col-personal-d-1 col-personal-s-2">
                         <a id="openDeleteRestaurantConfirmation" data-r-id="{{ $restaurant->id }}">
                             <i class="fas fa-trash-alt"></i>
@@ -347,7 +356,7 @@
         </div>
         <hr>
 
-        <div id="adminRestaurantForm">
+        <div id="adminObjectForm">
 
             <form>
                 @csrf
@@ -391,7 +400,7 @@
                 </div>
 
                 <div class="admin-form-button-holder">
-                    <div class="admin-restaurant-errors" id="errorsRestaurant"></div>
+                    <div class="admin-object-errors" id="errorsRestaurant"></div>
                     <button id="submitRestaurant" class="btn btn-primary">
                         {{ __('Submit') }}
                     </button>
@@ -407,7 +416,7 @@
         </div>
         <hr>
 
-        <div id="adminRestaurantForm">
+        <div id="adminObjectForm">
 
             <form>
                 @csrf
@@ -452,7 +461,7 @@
 
                 <div class="admin-form-button-holder" id="editRestaurantButton">
                     <label id="nameOfExistingFile"></label>
-                    <div class="admin-restaurant-errors" id="errorsEditRestaurant"></div>
+                    <div class="admin-object-errors" id="errorsEditRestaurant"></div>
                     <button id="submitEditedRestaurant" class="btn btn-primary">
                         {{ __('Submit') }}
                     </button>

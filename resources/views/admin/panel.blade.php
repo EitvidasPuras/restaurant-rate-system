@@ -49,16 +49,13 @@
             <div class="admin-panel-card col-personal-d-3 col-personal-s-6 col-personal-ms-12">
                 <h1> Types </h1>
                 <div class="admin-panel-card-circle">
-                    <a href="{{ url('/') }}">
+                    <a href="{{ route('adminTypes') }}">
                         <i class="fas fa-copy"></i>
                     </a>
                 </div>
             </div>
         </div>
     </div>
-
     </body>
-
-
 
 @endsection
