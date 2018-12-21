@@ -56,7 +56,7 @@ class RestaurantController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json("Validation failed", 400);
+            return response()->json($validator->errors(), 400);
         }
 
         if ($request->hasFile('image')) {
@@ -92,7 +92,7 @@ class RestaurantController extends Controller
             $restaurant->type;
             return response($restaurant, 200);
         }
-        return response("", 404);
+        return response()->json("Restaurant not found", 404);
     }
 
     /**
@@ -146,7 +146,7 @@ class RestaurantController extends Controller
         }
 
 //        $restaurant->update($request->all());
-        return response()->json("Success", 201);
+        return response()->json("Success", 200);
     }
 
     /**
@@ -163,13 +163,10 @@ class RestaurantController extends Controller
             return response()->json("Not an admin", 400);
         }
 
-        $restaurant = Restaurant::find($id);
-        if (!empty($restaurant)) {
-            $restaurant->delete();
-            DB::table('comments')->where('restaurant_id', '=', $id)->delete();
-            DB::table('ratings')->where('restaurant_id', '=', $id)->delete();
-            return response()->json("Success", 200);
-        }
-        return response()->json("Restaurant not found", 404);
+        $restaurant = Restaurant::findOrFail($id);
+        $restaurant->delete();
+        DB::table('comments')->where('restaurant_id', '=', $id)->delete();
+        DB::table('ratings')->where('restaurant_id', '=', $id)->delete();
+        return response()->json("Success", 200);
     }
 }

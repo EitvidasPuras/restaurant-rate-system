@@ -13,9 +13,7 @@ class JwtController extends Controller
 {
     public function getAuthenticatedUser()
     {
-        if (!$token = Cookie::get('JWT-TOKEN')) {
-            return response()->json('Cookie not found', 404);
-        }
+        $token = Cookie::get('JWT-TOKEN');
         $token = (new Parser())->parse((string)$token);
         $uid = $token->getClaim('uid');
 

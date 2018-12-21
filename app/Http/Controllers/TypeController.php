@@ -45,7 +45,7 @@ class TypeController extends Controller
         $type = new Type;
         $type->name = $request->name;
         $type->save();
-        return response("", 201);
+        return response()->json("Success", 201);
     }
 
     /**
@@ -60,7 +60,7 @@ class TypeController extends Controller
         if (!empty($type)) {
             return response($type, 200);
         }
-        return response("", 404);
+        return response()->json("Type not found", 404);
     }
 
     /**
@@ -87,6 +87,7 @@ class TypeController extends Controller
             return response($validator->errors(), 400);
         }
         $type->update($request->all());
+        return response()->json("Success", 200);
     }
 
     /**

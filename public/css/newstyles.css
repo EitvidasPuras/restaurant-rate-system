@@ -431,7 +431,7 @@ div.type-holder {
     top: 100%;
     z-index: 1000;
     left: 15rem;
-    /*display: none;*/
+    display: none;
     min-width: 10rem;
     padding: .5rem 0;
     margin: .125rem 0 0;
@@ -840,6 +840,7 @@ div.form-personal-row label {
         top: 20rem;
         padding: 20px 0 20px 0;
         display: none;
+        border: 1px solid gray;
     }
 
     div.admin-deletion-restaurant {
@@ -855,6 +856,7 @@ div.form-personal-row label {
         top: 13rem;
         padding: 20px 0 20px 0;
         display: none;
+        border: 1px solid gray;
     }
 
     div.title-holder button {
@@ -928,6 +930,7 @@ div.form-personal-row label {
         top: 13rem;
         padding: 20px 0 20px 0;
         display: none;
+        border: 1px solid gray;
     }
 
     div.admin-new-edit-restaurant {
@@ -943,6 +946,7 @@ div.form-personal-row label {
         top: 20rem;
         padding: 20px 0 20px 0;
         display: none;
+        border: 1px solid gray;
     }
 
     div.title-holder button {
@@ -1017,6 +1021,7 @@ div.form-personal-row label {
         top: 20rem;
         padding: 20px 0 20px 0;
         display: none;
+        border: 1px solid gray;
     }
 
     .col-personal-d-1 {
@@ -1083,6 +1088,7 @@ div.form-personal-row label {
         top: 20rem;
         padding: 20px 0 20px 0;
         display: none;
+        border: 1px solid gray;
     }
 
     .col-personal-dd-1 {
@@ -1192,6 +1198,7 @@ div.form-personal-row label {
         top: 20rem;
         padding: 20px 0 20px 0;
         display: none;
+        border: 1px solid gray;
     }
 
     div.title-holder button {

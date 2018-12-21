@@ -44,10 +44,11 @@ class CommentsController extends Controller
         $validator = Validator::make($request->all(), [
             'restaurant_id' => 'bail|required',
             'text' => 'bail|required|max:501',
+            'rating' => 'bail|required',
         ]);
 
         if ($validator->fails()) {
-            return response()->json("Comment validation failed", 400);
+            return response()->json($validator->errors(), 400);
         }
 
         $alreadyCommented = DB::table('comments')
@@ -98,7 +99,7 @@ class CommentsController extends Controller
             $comment->restaurant->type;
             return response($comment, 200);
         }
-        return response("", 404);
+        return response()->json("Comment not found", 404);
     }
 
     /**
@@ -126,6 +127,7 @@ class CommentsController extends Controller
             return response($validator->errors(), 400);
         }
         $comment->update($request->all());
+        return response()->json("Success", 200);
     }
 
     /**
